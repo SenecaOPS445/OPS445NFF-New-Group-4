@@ -22,4 +22,4 @@ def get_cpu_usage():
     total_time = user_time + nice_time + system_time + idle_time + iowait_time + irq_time + softirq_time
     idle_time_total = idle_time + iowait_time
     cpu_usage = (1 - (idle_time_total / total_time)) * 100  # Calculate CPU usage percentage
-    return round(cpu_usage, 2)  # Round to 2 decimal places
+    return round(cpu_usage, 2)  # Round to 2 decimal places sjdjkfnjvvnh
