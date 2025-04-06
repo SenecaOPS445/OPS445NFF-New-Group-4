@@ -64,6 +64,16 @@ def check_system_usage(resources):
     elif resources == ['ram']:  # If only 'ram' is specified
         ram_usage = get_ram_usage()
         print("RAM Usage:", ram_usage, "%")
+    elif resources == ['cpu', 'ram']:  # If both 'cpu' and 'ram' are specified
+        cpu_usage = get_cpu_usage()
+        ram_usage = get_ram_usage()
+        print("CPU Usage:", cpu_usage, "%")
+        print("RAM Usage:", ram_usage, "%")
+    elif resources == ['ram', 'cpu']:  # If both 'ram' and 'cpu' are specified (order doesn't matter)
+        cpu_usage = get_cpu_usage()
+        ram_usage = get_ram_usage()
+        print("CPU Usage:", cpu_usage, "%")
+        print("RAM Usage:", ram_usage, "%")
     else:
         # Handle invalid input
         print("Error: Invalid resource specified. Please specify 'cpu' or 'ram'.")
