@@ -7,23 +7,24 @@ This Python script allows you to check the current CPU and/or RAM usage of your 
 
 Run the script with the following commands:
 - `python3 assignment2.py cpu` to check CPU usage.
-- `python3 assignment2.py  ram` to check RAM usage.
-- `python3 assignment2.py  (without arguments) to check both CPU and RAM usage.
+- `python3 assignment2.py ram` to check RAM usage.
+- `python3 assignment2.py ram cpu` to check RAM and CPU usage.
+- `python3 assignment2.py` (without arguments) to check both CPU and RAM usage.
 
 This script reads data from `/proc/stat` for CPU usage and `/proc/meminfo` for memory usage, so it works only on Linux. 
 The CPU and RAM usage are displayed as percentages (e.g., `CPU Usage: 45.67 %` and `RAM Usage: 75.34 %`).
 """
 
-
+# Function to get CPU usage percentage from /proc/stat
 def get_cpu_usage():
     f = open('/proc/stat', 'r')
     line = f.readline()
     f.close()
 
-    
-    cpu_data = line.split()[1:8]  
+    # Extract the CPU times from the first line
+    cpu_data = line.split()[1:8]  # Skip the 'cpu' part and get the time values
 
-    
+    # Convert each value to an integer
     user_time = int(cpu_data[0])
     nice_time = int(cpu_data[1])
     system_time = int(cpu_data[2])
@@ -34,8 +35,9 @@ def get_cpu_usage():
 
     total_time = user_time + nice_time + system_time + idle_time + iowait_time + irq_time + softirq_time
     idle_time_total = idle_time + iowait_time
-    cpu_usage = (1 - (idle_time_total / total_time)) * 100  
-    return round(cpu_usage, 2) 
+    cpu_usage = (1 - (idle_time_total / total_time)) * 100  # Calculate CPU usage percentage
+    return round(cpu_usage, 2)  # Round to 2 decimal places
+
 
 # Function to get RAM usage percentage from /proc/meminfo
 def get_ram_usage():
@@ -56,6 +58,12 @@ def check_system_usage(resource):
         print("CPU Usage:", cpu_usage, "%")
     elif resource == 'ram':
         ram_usage = get_ram_usage()
+        print("RAM Usage:", ram_usage, "%")
+    elif resource is None:
+        # If no resource is specified, print both CPU and RAM usage
+        cpu_usage = get_cpu_usage()
+        ram_usage = get_ram_usage()
+        print("CPU Usage:", cpu_usage, "%")
         print("RAM Usage:", ram_usage, "%")
     else:
         # Handle invalid input
