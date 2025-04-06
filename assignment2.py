@@ -52,18 +52,17 @@ def get_ram_usage():
     cached = int(lines[4].split()[1])        
 
 # Function to check and print current system usage (CPU and/or RAM)
-def check_system_usage(resource):
-    if resource == 'cpu':
+def check_system_usage(resources):
+    if len(resources) == 0:  # If no resources are provided
         cpu_usage = get_cpu_usage()
-        print("CPU Usage:", cpu_usage, "%")
-    elif resource == 'ram':
         ram_usage = get_ram_usage()
+        print("CPU Usage:", cpu_usage, "%")
         print("RAM Usage:", ram_usage, "%")
-    elif resource is None:
-        # If no resource is specified, print both CPU and RAM usage
+    elif resources == ['cpu']:  # If only 'cpu' is specified
         cpu_usage = get_cpu_usage()
-        ram_usage = get_ram_usage()
         print("CPU Usage:", cpu_usage, "%")
+    elif resources == ['ram']:  # If only 'ram' is specified
+        ram_usage = get_ram_usage()
         print("RAM Usage:", ram_usage, "%")
     else:
         # Handle invalid input
