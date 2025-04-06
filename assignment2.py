@@ -59,6 +59,12 @@ def check_system_usage(resource):
     elif resource == 'ram':
         ram_usage = get_ram_usage()
         print("RAM Usage:", ram_usage, "%")
+    elif resource is None:
+        # If no resource is specified, print both CPU and RAM usage
+        cpu_usage = get_cpu_usage()
+        ram_usage = get_ram_usage()
+        print("CPU Usage:", cpu_usage, "%")
+        print("RAM Usage:", ram_usage, "%")
     else:
         # Handle invalid input
         print("Error: Invalid resource specified. Please specify 'cpu' or 'ram'.")
