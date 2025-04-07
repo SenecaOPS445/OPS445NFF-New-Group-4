@@ -90,9 +90,10 @@ def check_system_usage(resources):
 if __name__ == "__main__":
     # Set up argument parser
     parser = argparse.ArgumentParser()
-    # Define the argument for resource (cpu or ram)
-    parser.add_argument('resource', help="Specify 'cpu' for CPU usage or 'ram' for RAM usage.", type=str, default=None,)
+    # Define the argument for resource (cpu or ram), using nargs='*' to accept zero or more values
+    parser.add_argument('resource', help="Specify 'cpu' for CPU usage, 'ram' for RAM usage, or both.", type=str, nargs='*')
     # Parse the arguments from the command line
     args = parser.parse_args()
     # Call the function based on the provided argument
     check_system_usage(args.resource)
+
