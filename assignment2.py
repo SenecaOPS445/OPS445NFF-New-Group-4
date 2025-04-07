@@ -46,10 +46,18 @@ def get_ram_usage():
     f.close()
 
 
-    total_memory = int(lines[0].split()[1])  
-    free_memory = int(lines[1].split()[1])   
-    buffers = int(lines[3].split()[1])       
-    cached = int(lines[4].split()[1])        
+    # Extract total and free memory values 
+    total_memory = int(lines[0].split()[1])     # MemTotal
+    free_memory = int(lines[1].split()[1])      # MemFree
+    buffers = int(lines[3].split()[1])          # Buffers
+    cached = int(lines[4].split()[1])           # Cached
+
+    #Calculate used memory
+    used_memory = total_memory - free_memory - buffers - cached
+    #Calculate RAM usage percentage
+    ram_usage = (used_memory / total_memory) * 100
+    return round(ram_usage, 2)      # Round to 2 decimal places 
+
 
 # Function to check and print current system usage (CPU and/or RAM)
 def check_system_usage(resources):
